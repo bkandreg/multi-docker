@@ -14,6 +14,11 @@ after_success:
   - docker build -t bhanukandregula/multi-docker-server ./server
   - docker build -t bhanukandregula/multi-docker-worker ./worker
   # Login to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # take images and push them to docker hub
+  - docker push bhanukandregula/multi-docker-client 
+  - docker push bhanukandregula/multi-docker-nginx 
+  - docker push bhanukandregula/multi-docker-server 
+  - docker push bhanukandregula/multi-docker-worker 
 
 
