@@ -1,0 +1,19 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t bhanukandregula/multi-docker-test -f ./client/Dockerfile.dev .
+
+script:
+  - docker run -e CI=true bhanukandregula/multi-docker-test npm test
+
+after_success:
+  - docker build -t bhanukandregula/multi-docker-client ./client
+  - docker build -t bhanukandregula/multi-docker-nginx ./nginx
+  - docker build -t bhanukandregula/multi-docker-server ./server
+  - docker build -t bhanukandregula/multi-docker-worker ./worker
+  # Login to the Docker CLI
+  # take images and push them to docker hub
+
+
